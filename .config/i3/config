@@ -31,11 +31,12 @@ exec_always feh --bg-fill ~/.config/i3/wallpapers/Tower.png
 
 # Enable & run statusbar
 bar {
-    height 25 # Bar height
-    position top # Bar spawns at the top
-    tray_padding 1 # Enables system-tray padding
-    status_command i3blocks # Command to launch bar
-    #strip_workspace_numbers yes # ?
+    height 30
+    # Can change to 'top'
+    position bottom
+    tray_padding 1
+    status_command i3blocks
+
 
     colors {
             separator  #1f222d
@@ -64,7 +65,7 @@ client.background       #242424
 # 'Mod4' is the Windows key; this can be changed to 'Mod1' Alt Key
 set $mod Mod4
 # Use $mod+Mouse to drag floating windows to their wanted position
-floating_modifier $mod 
+floating_modifier $mod
 
 # Here you can declare 'variables' which are pieces of data
 # stored into the computers memory. We can use variables to store
@@ -85,17 +86,18 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # The font above is the default ^^^
 # Described as: 'very space-efficient, looks good, sharp & clear in small sizes'
-# However, if you need a lot of unicode glyphs or right-to-left text rendering, 
+# However, if you need a lot of unicode glyphs or right-to-left text rendering,
 # you should instead use 'pango' for rendering
 # font pango:DejaVu Sans Mono 10 # Uncomment this line if youd like to have glyphs rendering
 
 # GAPS (https://i3wm.org/docs/userguide.html#gaps)
 # I3 now has support for window gaps which can make I3 look a bit more clean
-gaps inner 3px # Configure space between windows and to the screen edges
+# Configure space between windows & screen edges
+gaps inner 5
 
 # Configure an additional pxs of extra space to the screen edges,
 # for a total gap of 10px to the screen edges, and 5px between windows.
-gaps outer 2px
+gaps outer 3
 
 # You can overwrite gaps for workspaces
 # Workspace 3 has NO gaps whatsoever
@@ -103,6 +105,12 @@ gaps outer 2px
 # workspace 3 gaps outer 0
 
 # smart_gaps inverse_outer # Only enable outer gaps when there is exactly one window
+
+# Window Borders
+default_border normal 3
+default_border pixel 3
+default_floating_border normal 3
+default_floating_border pixel 3
 
 # Window Rules
 # Rules for specific windows (set to floating/tiling example)
@@ -123,9 +131,12 @@ bindsym $mod+Shift+o exec i3lock # Executes lockscreen
 
 # Promts a waring to exit the current I3 session
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+q kill # Kill focused window
-bindsym $mod+Shift+c reload # Reloads the configuration file in the current session
-bindsym $mod+Shift+r restart # Restarts I3 (use this if you encounter issues or want to upgrade I3)
+# Kill focused window
+bindsym $mod+Shift+q kill
+# Reloads the configuration file in the current session
+bindsym $mod+Shift+c reload
+# Restarts I3 (use this if you encounter issues or want to upgrade I3)
+bindsym $mod+Shift+r restart
 
 # Switch focus between windows
 bindsym $mod+h focus left
@@ -150,22 +161,30 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym $mod+a focus parent # Switch focus to parent window
-bindsym $mod+c focus child # Switch focus the child window
+# Switch focus to parent window
+bindsym $mod+a focus parent
+# Switch focus the child window
+bindsym $mod+c focus child
 
-bindsym $mod+Shift+v split h # Split window orientation: Horizontal
-bindsym $mod+v split v # Split window orientation: Vertical
+# Split window orientation: Horizontal
+bindsym $mod+Shift+v split h
+# Split window orientation: Vertical
+bindsym $mod+v split v
 
-bindsym $mod+f fullscreen # Fullscreen active window
-bindsym $mod+Shift+space floating toggle # Toggles current window between Tiling/Floating
-bindsym $mod+b bar mode toggle # Toggles bar visability
+# Fullscreen active window
+bindsym $mod+f fullscreen
+# Toggles current window between Tiling/Floating
+bindsym $mod+Shift+space floating toggle
+# Toggles bar visability
+bindsym $mod+b bar mode toggle 
 
 # Change I3's layout between:
 # (Stacked, Tabbed, Toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-bindsym $mod+space focus mode_toggle # Toggles between Tiling windows & Floating
+bindsym $mod+space focus mode_toggle
+# ^^^ Toggles between Tiling windows & Floating
 
 # Switch to workspace (you can have more than 10 workspaes)
 bindsym $mod+1 workspace 1
@@ -196,12 +215,12 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 2%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 2%-
 bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 # Audio Player Management (can be used with Spotify) 
-bindsym XF86XKAudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86XKAudioNext exec --no-startup-id playerctl next
-bindsym XF86XKAudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # Laptop Brightness Management
-bindsym XF86XKMonBrightnessUp exec --no-startup-id brightnessctl set +200
-bindsym XF86XKMonBrightnessDown exec --no-startup-id brightnessctl set 200-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +200
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 200-
 # ----------------------------------------------------------------------------------------- #
 
 # MODES
@@ -228,7 +247,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize" # Declares 'resize' mode
+# Declares 'resize' mode
+bindsym $mod+r mode "resize"
 
 # Example mode from 'https://i3wm.org/docs/userguide.html#binding_modes'
 # Press $mod+o followed by either f, t, Escape or Return to launch firefox,
